@@ -1,6 +1,11 @@
 import pandas as pd
 
 
+def read_data():
+    df = yf.download('GBR', period='max')
+    df.to_csv('file1.csv')
+
+
 # добавление пропущенных дат
 def add_nan():
     df = pd.read_csv('file1.csv')
@@ -8,6 +13,7 @@ def add_nan():
     df.index = pd.DatetimeIndex(df['Date'])
     df = df.reindex(idx, fill_value='NaN')
     del df['Date']
+    df.index.name = 'Date'
     df.to_csv('file2.csv')
 
 
